@@ -1,0 +1,40 @@
+server:
+  host: 0.0.0.0
+  port: 8781
+
+database:
+  path: /data/mnemosyne.db
+
+hermes:
+  host: http://hermes:8780
+  timeout: 30
+
+memory:
+  # Temporal decay rates (per day)
+  decay_rates:
+    CORE: 0.01       # Very slow - core knowledge persists
+    STABLE: 0.03     # Moderate - stable memories fade slowly
+    EPHEMERAL: 0.1   # Fast - ephemeral memories decay quickly
+
+  # Consolidation thresholds
+  consolidation:
+    ephemeral_to_stable_activations: 5
+    ephemeral_to_stable_days: 14
+
+  # Spreading activation
+  activation:
+    default_depth: 2
+    decay_factor: 0.5
+    budget: 50
+    min_strength: 0.1
+
+  # Core summary
+  summary:
+    max_tokens: 500
+    top_projects: 3
+    top_technologies: 5
+    recent_events: 3
+
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

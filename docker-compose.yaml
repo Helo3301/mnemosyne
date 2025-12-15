@@ -1,0 +1,23 @@
+services:
+  mnemosyne:
+    build: .
+    container_name: mnemosyne
+    ports:
+      - "8781:8781"
+    volumes:
+      - ./data:/data
+      - ./config.yaml:/app/config.yaml:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - agentic
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8781/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  agentic:
+    external: true
